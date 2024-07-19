@@ -9,7 +9,7 @@ class GetUrl:
 
     def __init__(self):
         self.strategies = (
-        "common1", "common2", "butterfly", "fluid", "matery", "nexmoe", "stun", "sakura", "volantis", "Yun", "stellar")
+        "common1", "common2", "butterfly", "fluid", "matery", "nexmoe", "stun", "sakura", "volantis", "Yun", "stellar","stellar_websites")
 
     def get_theme_url(self, theme, response, queue):
         # 根据主题获取要爬取的的友链列表，保存到user_info中
@@ -134,6 +134,12 @@ class GetUrl:
         link = response.css('.card-link::attr(href)').extract()
         name = response.css('.card-link span::text').extract()
         self.handle(avatar, link, name, queue, "stellar")
+
+    def get_stellar_websites_url(self, response, queue):
+        avatar = response.css('.card-link .info img::attr(data-src)').extract()
+        link = response.css('.card-link::attr(href)').extract()
+        name = response.css('.card-link span[class="title"]::text').extract()
+        self.handle(avatar, link, name, queue, "stellar_websites")
 
     def handle(self, avatar, link, name, queue, theme):
         if len(avatar) == len(link) == len(name):
